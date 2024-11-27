@@ -2,84 +2,86 @@ public class SuperMessage
 {
     private long smsg = 0;
 
-	public SuperMessage(int type) {
-		smsg = smCreate(type);
-	}
+    public SuperMessage() {}
 
-	public SuperMessage(String typeName) {
+    public SuperMessage(int type) {
+        smsg = smCreate(type);
+    }
+
+    public SuperMessage(String typeName) {
         int type = smParseTypeNum(typeName);
-		smsg = smCreate(type);
-	}
+        smsg = smCreate(type);
+    }
 
-    public void finalize() {
-		smDestroy(smsg);
-	}
+    protected void finalize() {
+        smDestroy(smsg);
+    }
 
-    public int getSize() {
-		return smGetSize(smsg);
-	}
+    private int getSize() {
+        return smGetSize(smsg);
+    }
 
-    public int getType() {
-		return smGetType(smsg);
-	}
+    private int getType() {
+        return smGetType(smsg);
+    }
 
-    public long sizeByType() {
-		return smSizeByType(smsg);
-	}
+    private long sizeByType() {
+        return smSizeByType(smsg);
+    }
 
-    public int getInt(int fieldNum, int index) {
+    private int getInt(int fieldNum, int index) {
         return smIntPT(smGetValue(smsg, fieldNum, index));
     }
 
-    public String getString(int fieldNum, int index) {
+    private String getString(int fieldNum, int index) {
         return smStringPT(smGetValue(smsg, fieldNum, index));
     }
 
-    public void setValue(int fieldNum, int value, int index) {
+    private void setValue(int fieldNum, int value, int index) {
         smSetIntValue(smsg, fieldNum, smIntTP(value), index);
     }
 
-    public void setValue(int fieldNum, boolean value, int index) {
+    private void setValue(int fieldNum, boolean value, int index) {
         if (value == true) { smSetIntValue(smsg, fieldNum, smIntTP(1), index); return; }
         if (value == false) { smSetIntValue(smsg, fieldNum, smIntTP(0), index); return; }
     }
 
-    public void setValue(int fieldNum, String value, int index) {
+    private void setValue(int fieldNum, String value, int index) {
         smSetStringValue(smsg, fieldNum, value, index);
     }
 
-    public int getInt(String fieldName, int index) {
+    private int getInt(String fieldName, int index) {
         int fieldNum = smParseFieldNum(smsg, fieldName);
         return smIntPT(smGetValue(smsg, fieldNum, index));
     }
 
-    public String getString(String fieldName, int index) {
+    private String getString(String fieldName, int index) {
         int fieldNum = smParseFieldNum(smsg, fieldName);
         return smStringPT(smGetValue(smsg, fieldNum, index));
     }
 
-    public void setValue(String fieldName, int value, int index) {
+    private void setValue(String fieldName, int value, int index) {
         int fieldNum = smParseFieldNum(smsg, fieldName);
         smSetIntValue(smsg, fieldNum, smIntTP(value), index);
     }
 
-    public void setValue(String fieldName, boolean value, int index) {
+    private void setValue(String fieldName, boolean value, int index) {
         int fieldNum = smParseFieldNum(smsg, fieldName);
         if (value == true) { smSetIntValue(smsg, fieldNum, smIntTP(1), index); return; }
         if (value == false) { smSetIntValue(smsg, fieldNum, smIntTP(0), index); return; }
     }
 
-    public void setValue(String fieldName, String value, int index) {
+    private void setValue(String fieldName, String value, int index) {
         int fieldNum = smParseFieldNum(smsg, fieldName);
         smSetStringValue(smsg, fieldNum, value, index);
     }
 
-	static {
-		System.loadLibrary("smsg-jni");
-	}
+    static {
+        System.loadLibrary("jni-smsg");
+    }
 
-	private static native long smCreate(int type);
-	private static native void smDestroy(long msg);
+    private static native long smCreate(int type);
+    private static native void smDestroy(long msg);
     private static native int smGetSize(long msg);
     private static native int smGetType(long msg);
     private static native long smGetValue(long msg, int fieldNum, int index);
@@ -97,26 +99,26 @@ public class SuperMessage
         private long sm = 0;
         public bExit b_exit;
         public bReboot b_reboot;
-    
+
         public smService() {
             b_exit = new bExit();
             b_reboot = new bReboot();
             sm = smCreate(1);
             smSizeByType(sm);
-        }    
-    
-        public void finalize() {
+        }
+
+        protected void finalize() {
             smDestroy(sm);
         }
 
         public int getSize() {
             return smGetSize(sm);
         }
-    
+
         public int getType() {
             return smGetType(sm);
         }
-    
+
         public class bExit {
             public boolean get()
             {
@@ -156,7 +158,7 @@ public class SuperMessage
         public clientName client_name;
         public textClass text;
         public textLen text_len;
-    
+
         public smMessage() {
             b_global = new bGlobal();
             b_self = new bSelf();
@@ -166,16 +168,16 @@ public class SuperMessage
             text_len = new textLen();
             sm = smCreate(2);
             smSizeByType(sm);
-        }    
-    
-        public void finalize() {
+        }
+
+        protected void finalize() {
             smDestroy(sm);
         }
 
         public int getSize() {
             return smGetSize(sm);
         }
-    
+
         public int getType() {
             return smGetType(sm);
         }
@@ -242,21 +244,21 @@ public class SuperMessage
     public class smClientInit {
         public selfId self_id;
         private long sm = 0;
-    
+
         public smClientInit() {
             self_id = new selfId();
             sm = smCreate(3);
             smSizeByType(sm);
-        }    
-    
-        public void finalize() {
+        }
+
+        protected void finalize() {
             smDestroy(sm);
         }
 
         public int getSize() {
             return smGetSize(sm);
         }
-    
+
         public int getType() {
             return smGetType(sm);
         }
@@ -273,22 +275,22 @@ public class SuperMessage
         public namesClass names;
         public usersCount users_count;
         private long sm = 0;
-    
+
         public smUsersOnline() {
             names = new namesClass();
             users_count = new usersCount();
             sm = smCreate(4);
             smSizeByType(sm);
-        }    
-    
-        public void finalize() {
+        }
+
+        protected void finalize() {
             smDestroy(sm);
         }
 
         public int getSize() {
             return smGetSize(sm);
         }
-    
+
         public int getType() {
             return smGetType(sm);
         }
