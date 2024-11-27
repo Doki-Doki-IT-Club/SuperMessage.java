@@ -17,15 +17,15 @@ public class SuperMessage
         smDestroy(smsg);
     }
 
-    private int getSize() {
+    protected int getSize() {
         return smGetSize(smsg);
     }
 
-    private int getType() {
+    protected int getType() {
         return smGetType(smsg);
     }
 
-    private long sizeByType() {
+    protected long sizeByType() {
         return smSizeByType(smsg);
     }
 
@@ -37,43 +37,43 @@ public class SuperMessage
         return smStringPT(smGetValue(smsg, fieldNum, index));
     }
 
-    private void setValue(int fieldNum, int value, int index) {
+    protected void setValue(int fieldNum, int value, int index) {
         smSetIntValue(smsg, fieldNum, smIntTP(value), index);
     }
 
-    private void setValue(int fieldNum, boolean value, int index) {
+    protected void setValue(int fieldNum, boolean value, int index) {
         if (value == true) { smSetIntValue(smsg, fieldNum, smIntTP(1), index); return; }
         if (value == false) { smSetIntValue(smsg, fieldNum, smIntTP(0), index); return; }
     }
 
-    private void setValue(int fieldNum, String value, int index) {
+    protected void setValue(int fieldNum, String value, int index) {
         smSetStringValue(smsg, fieldNum, value, index);
     }
 
-    private int getInt(String fieldName, int index) {
+    protected void setValue(String fieldName, int value, int index) {
+        int fieldNum = smParseFieldNum(smsg, fieldName);
+        smSetIntValue(smsg, fieldNum, smIntTP(value), index);
+    }
+
+    protected void setValue(String fieldName, boolean value, int index) {
+        int fieldNum = smParseFieldNum(smsg, fieldName);
+        if (value == true) { smSetIntValue(smsg, fieldNum, smIntTP(1), index); return; }
+        if (value == false) { smSetIntValue(smsg, fieldNum, smIntTP(0), index); return; }
+    }
+
+    protected void setValue(String fieldName, String value, int index) {
+        int fieldNum = smParseFieldNum(smsg, fieldName);
+        smSetStringValue(smsg, fieldNum, value, index);
+    }
+
+    protected int getInt(String fieldName, int index) {
         int fieldNum = smParseFieldNum(smsg, fieldName);
         return smIntPT(smGetValue(smsg, fieldNum, index));
     }
 
-    private String getString(String fieldName, int index) {
+    protected String getString(String fieldName, int index) {
         int fieldNum = smParseFieldNum(smsg, fieldName);
         return smStringPT(smGetValue(smsg, fieldNum, index));
-    }
-
-    private void setValue(String fieldName, int value, int index) {
-        int fieldNum = smParseFieldNum(smsg, fieldName);
-        smSetIntValue(smsg, fieldNum, smIntTP(value), index);
-    }
-
-    private void setValue(String fieldName, boolean value, int index) {
-        int fieldNum = smParseFieldNum(smsg, fieldName);
-        if (value == true) { smSetIntValue(smsg, fieldNum, smIntTP(1), index); return; }
-        if (value == false) { smSetIntValue(smsg, fieldNum, smIntTP(0), index); return; }
-    }
-
-    private void setValue(String fieldName, String value, int index) {
-        int fieldNum = smParseFieldNum(smsg, fieldName);
-        smSetStringValue(smsg, fieldNum, value, index);
     }
 
     static {
