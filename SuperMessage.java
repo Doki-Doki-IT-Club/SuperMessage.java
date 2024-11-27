@@ -29,14 +29,6 @@ public class SuperMessage
         return smSizeByType(smsg);
     }
 
-    private int getInt(int fieldNum, int index) {
-        return smIntPT(smGetValue(smsg, fieldNum, index));
-    }
-
-    private String getString(int fieldNum, int index) {
-        return smStringPT(smGetValue(smsg, fieldNum, index));
-    }
-
     protected void setValue(int fieldNum, int value, int index) {
         smSetIntValue(smsg, fieldNum, smIntTP(value), index);
     }
@@ -71,8 +63,16 @@ public class SuperMessage
         return smIntPT(smGetValue(smsg, fieldNum, index));
     }
 
+    protected int getInt(int fieldNum, int index) {
+        return smIntPT(smGetValue(smsg, fieldNum, index));
+    }
+
     protected String getString(String fieldName, int index) {
         int fieldNum = smParseFieldNum(smsg, fieldName);
+        return smStringPT(smGetValue(smsg, fieldNum, index));
+    }
+
+    protected String getString(int fieldNum, int index) {
         return smStringPT(smGetValue(smsg, fieldNum, index));
     }
 
