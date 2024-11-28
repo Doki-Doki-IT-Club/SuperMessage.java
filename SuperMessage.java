@@ -122,7 +122,7 @@ public class SuperMessage
         public class bExit {
             public boolean get()
             {
-                long tmp = smGetValue(sm, 0, 0);
+                long tmp = smIntPT(smGetValue(sm, 0, 0));
                 if (tmp == 0) { return false; }
                 else { return true; }
             }
@@ -137,7 +137,7 @@ public class SuperMessage
         public class bReboot {
             public boolean get()
             {
-                long tmp = smGetValue(sm, 1, 0);
+                long tmp = smIntPT(smGetValue(sm, 1, 0));
                 if (tmp == 0) { return false; }
                 else { return true; }
             }
@@ -185,7 +185,7 @@ public class SuperMessage
         public class bGlobal {
             public boolean get()
             {
-                long tmp = smGetValue(sm, 0, 0);
+                long tmp = smIntPT(smGetValue(sm, 0, 0));
                 if (tmp == 0) { return false; }
                 else { return true; }
             }
@@ -200,7 +200,7 @@ public class SuperMessage
         public class bSelf {
             public boolean get()
             {
-                long tmp = smGetValue(sm, 1, 0);
+                long tmp = smIntPT(smGetValue(sm, 1, 0));
                 if (tmp == 0) { return false; }
                 else { return true; }
             }
